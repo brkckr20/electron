@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ElectronJS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+        html {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1 class="text-center uppercase text-4xl font-semibold">Burak Çakır</h1>
+<div class="max-w-[600px] mx-auto">
+    <input type="text" id="inputValue" class="border border-slate-300 outline-none">
+    <button id="sendBtn" class="bg-pink-300 px-3 py-1">Gönder +</button>
+    <div>
+        <button id="newWindow" class="bg-red-300 px-3 py-1 w-full mt-5">Yeni Pencere Aç</button>
+    </div>
+</div>
+
+
+<script>
+
+    const electron = require("electron");
+    const {ipcRenderer} = electron;
+
+    let sendBtn = document.querySelector("#sendBtn");
+    let inputValue = document.querySelector("#inputValue");
+    let newWindow = document.querySelector("#newWindow");
+
+    sendBtn.addEventListener("click", () => {
+        ipcRenderer.send('key:inputValue', inputValue.value);
+    })
+
+    newWindow.addEventListener("click", () => {
+        ipcRenderer.send("key:newWindow")
+    })
+</script>
+</body>
+</html>
